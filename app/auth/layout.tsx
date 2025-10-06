@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
-import { redirect } from "react-router";
+import { Outlet } from "react-router";
 
-export function Welcome() {
+export default function AuthLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     setIsLoggedIn(token ? true : false);
   }, []);
-  if (isLoggedIn) {
-    return redirect("/departments");
-  } else {
-    return redirect("/login");
-  }
+  return isLoggedIn ? <Outlet /> : null;
 }
